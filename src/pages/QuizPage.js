@@ -51,13 +51,13 @@ const quizQuestions = [
     }    
 ];
 
-function Popup({ point, closePopup }) {
+function Popup({ point, closePopup, updatePoints }) {
   const [showPurchased, setShowPurchased] = useState(false);
   const [showPurchaseError, setShowPurchaseError] = useState(false);
 
   const purchaseStarbucks = () => {
     if (point >= 1000) {
-      point -= 1000;
+      updatePoints(point - 1000);
       setShowPurchaseError(false);
       setShowPurchased(true);
     }
@@ -69,7 +69,7 @@ function Popup({ point, closePopup }) {
 
   const purchaseXbox = () => {
     if (point >= 2000) {
-      point -= 2000;
+      updatePoints(point - 2000);
       setShowPurchaseError(false);
       setShowPurchased(true);
     }
@@ -81,7 +81,7 @@ function Popup({ point, closePopup }) {
 
   const purchaseAmazon = () => {
     if (point >= 6000) {
-      point -= 6000;
+      updatePoints(point - 6000);
       setShowPurchaseError(false);
       setShowPurchased(true);
     }
@@ -94,7 +94,7 @@ function Popup({ point, closePopup }) {
   return (
     <div className="popup">
       <div id = "pointsToRedeem">{point} points</div>
-      <button onClick={purchaseAmazon}>
+      <button onClick={purchaseStarbucks}>
         <table>
           <tr>
             <th><img class = "giftcardImg" src = "https://az15297.vo.msecnd.net/images/rewards/rc/medium/000805000005_262x164.png"></img></th>
@@ -108,7 +108,7 @@ function Popup({ point, closePopup }) {
         </table>
       </button>
       
-      <button onClick={purchaseAmazon}>
+      <button onClick={purchaseXbox}>
         <table>
           <tr>
             <th><img class = "giftcardImg" src = "https://az15297.vo.msecnd.net/images/rewards/rc/medium/000400000008v1_262x164.png"></img></th>
@@ -117,7 +117,7 @@ function Popup({ point, closePopup }) {
             <td>$10 Xbox Gift Card</td>
           </tr>
           <tr>
-            <td>6000 points</td>
+            <td>2000 points</td>
           </tr>
         </table>
       </button>
@@ -131,7 +131,7 @@ function Popup({ point, closePopup }) {
             <td>$30 Amazon Gift Card</td>
           </tr>
           <tr>
-            <td>2000 points</td>
+            <td>6000 points</td>
           </tr>
         </table>
       </button>
@@ -159,8 +159,8 @@ function Explanation({toNextQuestion, solution}) {
 function QuizPage() {
 const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 const [selectedOption, setSelectedOption] = useState('');
-const [score, setScore] = useState(0);
-const [point, setPoint] = useState(10);
+const [score, setScore] = useState(1000);
+const [point, setPoint] = useState(10000);
 const [showScore, setShowScore] = useState(false);
 const [showPopup, setShowPopup] = useState(false);
 const [showExplanation, setShowExplanation] = useState(false);
@@ -173,7 +173,7 @@ const handleSubmit = (e) => {
   e.preventDefault();
   if (selectedOption === quizQuestions[currentQuestionIndex].answer) {
     setScore(score + 1);
-    setPoint((score + 1) * 10);
+    setPoint(point + 10);
     setShowExplanation(false);
     if (currentQuestionIndex < quizQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -182,7 +182,8 @@ const handleSubmit = (e) => {
     }
   }
   else {
-      setShowExplanation(true);
+    setPoint(point - 2);
+    setShowExplanation(true);
   }
 };
 
@@ -203,14 +204,14 @@ return (
   <div>
     {showScore ? (
       <div>
-        <button onClick={togglePopup}>Store</button>
+        <button onClick={togglePopup}>Store ({point} points)</button>
         {showPopup && <Popup point={point} closePopup={togglePopup} />}
         <h2>Your score is {score} out of {quizQuestions.length}</h2>
       </div>
     ) : (
       <div>
-          <button onClick={togglePopup}>Store</button>
-          {showPopup && <Popup point={point} closePopup={togglePopup} />}
+          <button onClick={togglePopup}>Store ({point} points)</button>
+          {showPopup && <Popup updatePoints={(newPoint) => setPoint(newPoint)} point={point} closePopup={togglePopup} />}
           <h2>{quizQuestions[currentQuestionIndex].question}</h2>
           <form onSubmit={handleSubmit}>
               {quizQuestions[currentQuestionIndex].options.map((option, index) => (
