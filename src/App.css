@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+#quizQuestion{
+  font-size: 4rem;
+  width: 100;
+  text-align: center;
+}
