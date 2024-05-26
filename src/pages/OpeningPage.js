@@ -5,7 +5,7 @@ function OpeningPage({ startQuiz }) {
     <div>
       <img src = "/favicon.png"></img>
       <h1 id = "CashQuizLabel">Cash Quiz</h1>
-      <button onClick={startQuiz}>Start Quiz!</button>
+      <button className='green-button' onClick={startQuiz}>Start Quiz!</button>
     </div>
   );
 }

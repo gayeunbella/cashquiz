@@ -7,54 +7,56 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 1rem;
+  background-color: #F6E9B2;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.gift-button {
+  background: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-
+.container {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 30rem;
+  max-width: 50rem;
+  background-color: white;
+  border-radius: 2.5rem;
+  border-color: #088710;
+  border-style: solid;
+  padding: 1rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-button{
+.green-button{
   font-family: "Comfortaa";
   border: none;
-  height: 2rem;
+  border-radius: 1rem;
+  height: 3rem;
+  width: 8rem;
+  text-align: center;
   text-decoration: none;
-  background-color: beige;
-  margin: 8px;
+  color: white;
+  padding: 1rem;
+  margin: 3rem;
+  background-color: #088710;
 }
 
-button:hover{
+.green-button-store{
+  font-family: "Comfortaa";
+  border: none;
+  border-radius: 1rem;
+  height: 3rem;
+  width: 15rem;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  padding: 1rem;
+  margin: 3rem;
+  background-color: #088710;
+}
+
+.button:hover{
   opacity: 0.6;
 }
 
@@ -62,19 +64,43 @@ button:hover{
   color: #088710;
 }
 
-.popup{
-  background-color: beige;
-  margin-left: 10rem;
-  margin-right: 10rem;
-  padding: 1rem;
+.popup {
+  background-color: #F6E9B2;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem;
+  padding-top: 4rem;
+  border-radius: 2.5rem;
+  border: 1.5px solid #088710;
+  z-index: 1000;
+}
+
+.gift-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.option {
+  line-height: 2rem;
 }
 
 #pointsToRedeem{
   font-weight: bold;
+  margin-bottom: 1rem;
 }
 
 .giftcardImg{
-  height: 10rem;
+  height: 8rem;
+}
+
+.giftcardImg:hover{
+  cursor: pointer;
 }
 
 table{

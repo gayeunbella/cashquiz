@@ -93,53 +93,30 @@ function Popup({ point, closePopup, updatePoints }) {
 
   return (
     <div className="popup">
-      <div id = "pointsToRedeem">{point} points</div>
-      <button onClick={purchaseStarbucks}>
-        <table>
-          <tr>
-            <th><img class = "giftcardImg" src = "https://az15297.vo.msecnd.net/images/rewards/rc/medium/000805000005_262x164.png"></img></th>
-          </tr>
-          <tr>
-            <td>$5 Starbucks Gift Card</td>
-          </tr>
-          <tr>
-            <td>1000 points</td>
-          </tr>
-        </table>
-      </button>
-      
-      <button onClick={purchaseXbox}>
-        <table>
-          <tr>
-            <th><img class = "giftcardImg" src = "https://az15297.vo.msecnd.net/images/rewards/rc/medium/000400000008v1_262x164.png"></img></th>
-          </tr>
-          <tr>
-            <td>$10 Xbox Gift Card</td>
-          </tr>
-          <tr>
-            <td>2000 points</td>
-          </tr>
-        </table>
-      </button>
+      <div id = "pointsToRedeem">You have {point} points</div>
+      <div className='gift-container'>
+        <div onClick={purchaseStarbucks}>
+          <h2><img class = "giftcardImg" src = "https://az15297.vo.msecnd.net/images/rewards/rc/medium/000805000005_262x164.png"></img></h2>
+          <p>$5 Starbucks Gift Card</p>
+          <p>1000 points</p>
+        </div>
+        
+        <div onClick={purchaseXbox}>
+          <h2><img class = "giftcardImg" src = "https://az15297.vo.msecnd.net/images/rewards/rc/medium/000400000008v1_262x164.png"></img></h2>
+          <p>$10 Xbox Gift Card</p>
+          <p>6000 points</p>
+        </div>
 
-      <button onClick={purchaseAmazon}>
-        <table>
-          <tr>
-            <th><img class = "giftcardImg" src = "https://az15297.vo.msecnd.net/images/rewards/rc/medium/000800000000_262x164.png"></img></th>
-          </tr>
-          <tr>
-            <td>$30 Amazon Gift Card</td>
-          </tr>
-          <tr>
-            <td>6000 points</td>
-          </tr>
-        </table>
-      </button>
+        <div onClick={purchaseAmazon}>
+          <h2><img class = "giftcardImg" src = "https://az15297.vo.msecnd.net/images/rewards/rc/medium/000800000000_262x164.png"></img></h2>
+          <p>$30 Amazon Gift Card</p>
+          <p>2000 points</p>
+        </div>
+      </div>
 
       {showPurchased && <p>Successfully purchased the giftcard. The gift card will be emailed to you.</p>}
       {showPurchaseError && <p>You need more points for this gift card. Purchase failed.</p>}
-      
-      <button onClick={closePopup}>Close</button>
+      <button className='green-button' onClick={closePopup}>Close</button>
     </div>
   );
 }
@@ -149,8 +126,8 @@ function Explanation({toNextQuestion, solution}) {
 
   return (
       <div>
-          <button onClick={toNextQuestion}>Continue</button>
-          <p>Wrong!</p>
+          <button className='green-button' onClick={toNextQuestion}>Continue</button>
+          <p><b>Wrong!</b></p>
           <p>{solution}</p>
       </div>
   )
@@ -159,8 +136,8 @@ function Explanation({toNextQuestion, solution}) {
 function QuizPage() {
 const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 const [selectedOption, setSelectedOption] = useState('');
-const [score, setScore] = useState(1000);
-const [point, setPoint] = useState(10000);
+const [score, setScore] = useState(0);
+const [point, setPoint] = useState(10);
 const [showScore, setShowScore] = useState(false);
 const [showPopup, setShowPopup] = useState(false);
 const [showExplanation, setShowExplanation] = useState(false);
@@ -173,7 +150,7 @@ const handleSubmit = (e) => {
   e.preventDefault();
   if (selectedOption === quizQuestions[currentQuestionIndex].answer) {
     setScore(score + 1);
-    setPoint(point + 10);
+    setPoint((score + 1) * 10);
     setShowExplanation(false);
     if (currentQuestionIndex < quizQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -182,8 +159,7 @@ const handleSubmit = (e) => {
     }
   }
   else {
-    setPoint(point - 2);
-    setShowExplanation(true);
+      setShowExplanation(true);
   }
 };
 
@@ -204,19 +180,19 @@ return (
   <div>
     {showScore ? (
       <div>
-        <button onClick={togglePopup}>Store ({point} points)</button>
+        <button className='green-button-store' onClick={togglePopup}>Store ({point} points)</button>
         {showPopup && <Popup point={point} closePopup={togglePopup} />}
         <h2>Your score is {score} out of {quizQuestions.length}</h2>
       </div>
     ) : (
       <div>
-          <button onClick={togglePopup}>Store ({point} points)</button>
+          <button className='green-button-store' onClick={togglePopup}>Store ({point} points)</button>
           {showPopup && <Popup updatePoints={(newPoint) => setPoint(newPoint)} point={point} closePopup={togglePopup} />}
           <h2>{quizQuestions[currentQuestionIndex].question}</h2>
           <form onSubmit={handleSubmit}>
               {quizQuestions[currentQuestionIndex].options.map((option, index) => (
               <div key={index}>
-                  <label>
+                  <label className='option'>
                   <input
                       type="radio"
                       value={option}
@@ -227,7 +203,7 @@ return (
                   </label>
               </div>
               ))}
-              {!showExplanation && <button type="submit">Submit</button>}
+              {!showExplanation && <button className='green-button' type="submit">Submit</button>}
               {showExplanation && <Explanation toNextQuestion={toNextQuestion} solution = {quizQuestions[currentQuestionIndex].solution}/>}
           </form>
           </div>
