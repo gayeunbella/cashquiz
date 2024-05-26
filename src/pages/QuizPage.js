@@ -104,13 +104,13 @@ function Popup({ point, closePopup, updatePoints }) {
         <div onClick={purchaseXbox}>
           <h2><img class = "giftcardImg" src = "https://az15297.vo.msecnd.net/images/rewards/rc/medium/000400000008v1_262x164.png"></img></h2>
           <p>$10 Xbox Gift Card</p>
-          <p>6000 points</p>
+          <p>2000 points</p>
         </div>
 
         <div onClick={purchaseAmazon}>
           <h2><img class = "giftcardImg" src = "https://az15297.vo.msecnd.net/images/rewards/rc/medium/000800000000_262x164.png"></img></h2>
           <p>$30 Amazon Gift Card</p>
-          <p>2000 points</p>
+          <p>6000 points</p>
         </div>
       </div>
 
@@ -150,7 +150,7 @@ const handleSubmit = (e) => {
   e.preventDefault();
   if (selectedOption === quizQuestions[currentQuestionIndex].answer) {
     setScore(score + 1);
-    setPoint((score + 1) * 10);
+    setPoint(point + 10);
     setShowExplanation(false);
     if (currentQuestionIndex < quizQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
